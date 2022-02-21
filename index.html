@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Converter</title>
+    <style>
+        body {
+            max-width: 750px;
+            margin: 2rem auto;
+            font-family: Verdana, sans-serif;
+            background-color: #007e9b;
+            color: white;
+        }
+        input {
+            margin-top:2rem;
+            font-size:1rem;
+        }
+        button {
+            font-size:1rem;
+        }
+        button:hover {
+            background-color:#feffbe;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Convert decimal to binary:</h1>
+    <hr/>
+    <p><em>Note: Currently does not work for 0 and 1</em></p>
+    <input type="number" placeholder="Enter number here">
+    <button class="submit">Submit</button>
+    <p class="binaryValue"></p>
+</body>
+<script>
+    
+    const inputSubmit = document.querySelector('.submit');
+    const binaryValue = document.querySelector('.binaryValue');
+    const error = `Please enter a numerical value before hitting submit`;
+
+    inputSubmit.addEventListener('click', function() {
+        const input = document.querySelector('input').value;
+        input ? binaryValue.textContent = binary(input) : binaryValue.textContent = error;
+    });
+
+
+    function binary(number) {
+    let binaryConvert = ''; 
+    let exponent = 0;
+    
+    while (Math.pow(2, exponent) <= number) {
+        exponent ++;
+    }
+
+
+    // problem here is exponent is not being subtracted from with each run through of the function, 
+    // but it can't be because I think it will mess up the for loop parameters, so I added another variable which I don't love. feels like a bandaid
+  exponent2 = exponent -1;
+
+    for (let i = 0; i < exponent; i++) {
+        if (Math.pow(2, exponent2) <= number ) {
+            binaryConvert = binaryConvert.concat('1');
+            number = number - Math.pow(2,exponent2);
+        } else {
+            binaryConvert = binaryConvert.concat('0');
+        }
+        exponent2--;
+    }    
+return binaryConvert;
+}
+</script>
+</html>
